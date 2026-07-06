@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cppyjh1ootj1f"]
+
+[ext_resource type="Script" uid="uid://l7lispulo2de" path="res://scripts/item.gd" id="1_lc0jm"]
+[ext_resource type="Texture2D" uid="uid://bt0yk8r8234mf" path="res://assets/sprites/handles/stone.png" id="1_rppon"]
+
+[resource]
+script = ExtResource("1_lc0jm")
+name = "Stone Handle"
+icon = ExtResource("1_rppon")
+metadata/_custom_type_script = "uid://l7lispulo2de"

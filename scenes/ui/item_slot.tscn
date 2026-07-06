@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://befte0vkt60ot"]
+
+[ext_resource type="Script" uid="uid://cflyesjexii5h" path="res://scenes/ui/item_slot.gd" id="1_uw4km"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0myub"]
+font_size = 12
+
+[node name="ItemSlot" type="PanelContainer" unique_id=695912697]
+custom_minimum_size = Vector2(37, 37)
+custom_maximum_size = Vector2(37, 37)
+offset_right = 37.0
+offset_bottom = 37.0
+script = ExtResource("1_uw4km")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1934926967]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=653878087]
+layout_mode = 2
+
+[node name="NumberLabel" type="Label" parent="." unique_id=1881144810]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_0myub")
+vertical_alignment = 1

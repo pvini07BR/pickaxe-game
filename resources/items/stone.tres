@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bvokktkuco8cg"]
+
+[ext_resource type="Script" uid="uid://l7lispulo2de" path="res://scripts/item.gd" id="1_6yv2l"]
+[ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="1_q1oyt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yv2l"]
+atlas = ExtResource("1_q1oyt")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_6yv2l")
+name = "Stone"
+icon = SubResource("AtlasTexture_6yv2l")
+metadata/_custom_type_script = "uid://l7lispulo2de"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HeadMaterial" format=3 uid="uid://ce2spgyqxnca6"]
+
+[ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="1_1wkjt"]
+[ext_resource type="Texture2D" uid="uid://clc34vdc4bie3" path="res://assets/sprites/heads/stone.png" id="2_k30ay"]
+
+[resource]
+script = ExtResource("1_1wkjt")
+name = "Stone"
+mining_speed = 2.0
+texture = ExtResource("2_k30ay")
+metadata/_custom_type_script = "uid://cpdr66i80efe3"

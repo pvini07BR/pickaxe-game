@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://0rvh7tbcso0t"]
+
+[ext_resource type="Script" uid="uid://dkcp16yw2n6oq" path="res://scenes/ui/pickaxe_row.gd" id="1_7diid"]
+
+[node name="PickaxeRow" type="ColorRect" unique_id=845368135]
+custom_minimum_size = Vector2(0, 32)
+custom_maximum_size = Vector2(-1, 32)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 164.0
+offset_bottom = -164.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("1_7diid")
+
+[node name="MiningTimer" type="Timer" parent="." unique_id=504179998]
+one_shot = true
+
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

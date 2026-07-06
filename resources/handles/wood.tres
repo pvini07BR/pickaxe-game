@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HandleMaterial" format=3 uid="uid://cp3110f43u74s"]
+
+[ext_resource type="Script" uid="uid://cu01i3gcjqnxl" path="res://scripts/handle_material.gd" id="1_ks4to"]
+[ext_resource type="Texture2D" uid="uid://bqwntnl6ehk6u" path="res://assets/sprites/handles/wood.png" id="2_0bc68"]
+
+[resource]
+script = ExtResource("1_ks4to")
+name = "Wood"
+durability = 5
+texture = ExtResource("2_0bc68")
+metadata/_custom_type_script = "uid://cu01i3gcjqnxl"

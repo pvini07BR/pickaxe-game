@@ -1,0 +1,305 @@
+[gd_scene format=3 uid="uid://dvi3r5v64aci4"]
+
+[ext_resource type="Script" uid="uid://dbancwdikm581" path="res://scenes/main.gd" id="1_a8y0u"]
+[ext_resource type="Script" uid="uid://y66b2oetyvja" path="res://scripts/pickaxe.gd" id="3_a8y0u"]
+[ext_resource type="Resource" uid="uid://cp3110f43u74s" path="res://resources/handles/wood.tres" id="4_jbj1t"]
+[ext_resource type="Script" uid="uid://bm61br2d8bb3n" path="res://scenes/game_window.gd" id="5_a8y0u"]
+[ext_resource type="Resource" uid="uid://ce2spgyqxnca6" path="res://resources/heads/stone.tres" id="5_muem4"]
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="6_0ld40"]
+[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="7_gqmmt"]
+[ext_resource type="Script" uid="uid://qik3vff0aphm" path="res://scenes/pickaxe_rows.gd" id="7_jbj1t"]
+[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="8_yc10j"]
+[ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="9_jscy8"]
+[ext_resource type="PackedScene" uid="uid://0rvh7tbcso0t" path="res://scenes/ui/pickaxe_row.tscn" id="10_trceg"]
+[ext_resource type="Script" uid="uid://d1ew7d583ojpk" path="res://scenes/crafting_window.gd" id="12_a8y0u"]
+[ext_resource type="Script" uid="uid://jj0ynwxolbv" path="res://scripts/recipe.gd" id="13_a8y0u"]
+[ext_resource type="Script" uid="uid://d783dq5sn4ej" path="res://scenes/pickaxe_list.gd" id="14_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://bbq7qmeu6md78" path="res://scenes/ui/pickaxe_slot.tscn" id="14_muem4"]
+[ext_resource type="Resource" uid="uid://yd2oui42hscb" path="res://resources/recipes/stone_handle.tres" id="14_vxglm"]
+
+[sub_resource type="Theme" id="Theme_ycdy4"]
+default_font_size = 12
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
+texture = ExtResource("9_jscy8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = ExtResource("6_0ld40")
+1:0/0 = 0
+1:0/0/custom_data_0 = ExtResource("7_gqmmt")
+2:0/0 = 0
+2:0/0/custom_data_0 = ExtResource("8_yc10j")
+
+[sub_resource type="TileSet" id="TileSet_oev6u"]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "item"
+custom_data_layer_0/type = 24
+sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="Resource" id="Resource_5riyp"]
+script = ExtResource("3_a8y0u")
+head_material = ExtResource("5_muem4")
+handle_material = ExtResource("4_jbj1t")
+metadata/_custom_type_script = "uid://y66b2oetyvja"
+
+[sub_resource type="Resource" id="Resource_jbj1t"]
+script = ExtResource("3_a8y0u")
+head_material = ExtResource("5_muem4")
+handle_material = ExtResource("4_jbj1t")
+metadata/_custom_type_script = "uid://y66b2oetyvja"
+
+[sub_resource type="LabelSettings" id="LabelSettings_ycdy4"]
+font_size = 35
+
+[node name="Main" type="Control" unique_id=56482979]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ycdy4")
+script = ExtResource("1_a8y0u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1143137724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=920713456]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=777326669]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="GameWindow" type="ColorRect" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=1062803317]
+clip_children = 1
+custom_minimum_size = Vector2(320, 192)
+custom_maximum_size = Vector2(320, 192)
+layout_mode = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="HBoxContainer/VBoxContainer/MarginContainer/GameWindow" unique_id=1605409858]
+tile_set = SubResource("TileSet_oev6u")
+occlusion_enabled = false
+rendering_quadrant_size = 1
+collision_enabled = false
+navigation_enabled = false
+script = ExtResource("5_a8y0u")
+
+[node name="PickaxeRows" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=894763855 node_paths=PackedStringArray("game_window", "pickaxe_list")]
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("7_jbj1t")
+game_window = NodePath("../GameWindow/TileMapLayer")
+pickaxe_list = NodePath("../../../VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer")
+
+[node name="PickaxeRow" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1967544470 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="PickaxeRow2" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=109995635 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="PickaxeRow3" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=726538690 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="PickaxeRow4" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=845368135 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="PickaxeRow5" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=219015564 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="PickaxeRow6" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1352667366 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+layout_mode = 2
+game_window = NodePath("../../GameWindow/TileMapLayer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1488827999]
+layout_mode = 2
+
+[node name="CraftingButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1407126242]
+layout_mode = 2
+text = "Craft Items"
+
+[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1336846749]
+layout_mode = 2
+text = "Craft Pickaxe"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=603370547]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Inventory" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=59951214]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Inventory" unique_id=1910363840]
+layout_mode = 2
+text = "Inventory"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Inventory" unique_id=1267657486]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Inventory/PanelContainer" unique_id=380773071]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer2/Inventory/PanelContainer/MarginContainer" unique_id=570413938]
+layout_mode = 2
+columns = 5
+
+[node name="Pickaxes" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=1997109389]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1672420194]
+layout_mode = 2
+text = "Inactive Pickaxes"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1903189753]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer" unique_id=210015071]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer" unique_id=617339522]
+layout_mode = 2
+columns = 5
+script = ExtResource("14_dp3eg")
+
+[node name="PickaxeSlot" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer" unique_id=15995619 instance=ExtResource("14_muem4")]
+layout_mode = 2
+pickaxe_data = SubResource("Resource_5riyp")
+
+[node name="PickaxeSlot2" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer" unique_id=376073466 instance=ExtResource("14_muem4")]
+layout_mode = 2
+pickaxe_data = SubResource("Resource_jbj1t")
+
+[node name="BGFade" type="ColorRect" parent="." unique_id=435194785]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="CraftingWindow" type="PanelContainer" parent="." unique_id=1183591072]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -130.0
+offset_right = 135.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_a8y0u")
+recipes = Array[ExtResource("13_a8y0u")]([ExtResource("14_vxglm")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CraftingWindow" unique_id=1948681685]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CraftingWindow/HBoxContainer" unique_id=1242415176]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="RecipeList" type="ItemList" parent="CraftingWindow/HBoxContainer/VBoxContainer2" unique_id=1825884167]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="CraftingWindow/HBoxContainer/VBoxContainer2" unique_id=261726364]
+layout_mode = 2
+text = "Close"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CraftingWindow/HBoxContainer" unique_id=636166925]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CraftingWindow/HBoxContainer/VBoxContainer" unique_id=64540277]
+layout_mode = 2
+text = "Ingredients:"
+
+[node name="IngredientsList" type="HBoxContainer" parent="CraftingWindow/HBoxContainer/VBoxContainer" unique_id=2092674225]
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="CraftingWindow/HBoxContainer/VBoxContainer" unique_id=1353220060]
+layout_mode = 2
+text = "Craft"
+
+[node name="GameOverPopup" type="PanelContainer" parent="." unique_id=2088812055]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverPopup" unique_id=19027827]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPopup/MarginContainer" unique_id=543713843]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=1892523566]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_ycdy4")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=901393285]
+layout_mode = 2
+text = "You ran out of pickaxes!"
+horizontal_alignment = 1
+
+[node name="NewGameButton" type="Button" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=1648574873]
+layout_mode = 2
+text = "New Game"
+
+[connection signal="game_over" from="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" to="." method="_on_game_over"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/CraftingButton" to="." method="_on_crafting_button_pressed"]
+[connection signal="item_selected" from="CraftingWindow/HBoxContainer/VBoxContainer2/RecipeList" to="CraftingWindow" method="_on_recipe_list_item_selected"]
+[connection signal="pressed" from="CraftingWindow/HBoxContainer/VBoxContainer2/CloseButton" to="CraftingWindow" method="_on_close_button_pressed"]
+[connection signal="pressed" from="CraftingWindow/HBoxContainer/VBoxContainer/CraftButton" to="CraftingWindow" method="_on_craft_button_pressed"]
+[connection signal="pressed" from="GameOverPopup/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
