@@ -1,11 +1,20 @@
 [gd_resource type="Resource" script_class="HeadMaterial" format=3 uid="uid://ce2spgyqxnca6"]
 
 [ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="1_1wkjt"]
+[ext_resource type="Script" uid="uid://dml5do6t1plrm" path="res://scripts/recipe_ingredient.gd" id="1_poijo"]
 [ext_resource type="Texture2D" uid="uid://clc34vdc4bie3" path="res://assets/sprites/heads/stone.png" id="2_k30ay"]
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="2_ycxhk"]
+
+[sub_resource type="Resource" id="Resource_0p3t8"]
+script = ExtResource("1_poijo")
+item = ExtResource("2_ycxhk")
+amount = 3
+metadata/_custom_type_script = "uid://dml5do6t1plrm"
 
 [resource]
 script = ExtResource("1_1wkjt")
 name = "Stone"
 mining_speed = 2.0
 texture = ExtResource("2_k30ay")
+ingredients = Array[ExtResource("1_poijo")]([SubResource("Resource_0p3t8")])
 metadata/_custom_type_script = "uid://cpdr66i80efe3"

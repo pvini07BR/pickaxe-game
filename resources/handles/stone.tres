@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="HandleMaterial" format=3 uid="uid://cqgdx70kqeywo"]
+
+[ext_resource type="Script" uid="uid://cu01i3gcjqnxl" path="res://scripts/handle_material.gd" id="1_4tsmk"]
+[ext_resource type="Script" uid="uid://dml5do6t1plrm" path="res://scripts/recipe_ingredient.gd" id="1_wtnmj"]
+[ext_resource type="Texture2D" uid="uid://bt0yk8r8234mf" path="res://assets/sprites/handles/stone.png" id="2_4tsmk"]
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="2_gepwb"]
+
+[sub_resource type="Resource" id="Resource_muem4"]
+script = ExtResource("1_wtnmj")
+item = ExtResource("2_gepwb")
+amount = 2
+metadata/_custom_type_script = "uid://dml5do6t1plrm"
+
+[resource]
+script = ExtResource("1_4tsmk")
+name = "Stone"
+durability = 30
+texture = ExtResource("2_4tsmk")
+ingredients = Array[ExtResource("1_wtnmj")]([SubResource("Resource_muem4")])
+metadata/_custom_type_script = "uid://cu01i3gcjqnxl"

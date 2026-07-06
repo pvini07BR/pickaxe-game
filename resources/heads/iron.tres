@@ -1,11 +1,20 @@
 [gd_resource type="Resource" script_class="HeadMaterial" format=3 uid="uid://rt7tl8xqlje"]
 
+[ext_resource type="Script" uid="uid://dml5do6t1plrm" path="res://scripts/recipe_ingredient.gd" id="1_1ith6"]
 [ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="1_2k8sk"]
 [ext_resource type="Texture2D" uid="uid://bp6nagxiv6cvx" path="res://assets/sprites/heads/iron.png" id="2_2k8sk"]
+[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="2_77wwl"]
+
+[sub_resource type="Resource" id="Resource_muem4"]
+script = ExtResource("1_1ith6")
+item = ExtResource("2_77wwl")
+amount = 3
+metadata/_custom_type_script = "uid://dml5do6t1plrm"
 
 [resource]
 script = ExtResource("1_2k8sk")
 name = "Iron"
 mining_speed = 0.5
 texture = ExtResource("2_2k8sk")
+ingredients = Array[ExtResource("1_1ith6")]([SubResource("Resource_muem4")])
 metadata/_custom_type_script = "uid://cpdr66i80efe3"

@@ -3,7 +3,6 @@ extends VBoxContainer
 @export var game_window: GameWindow
 @export var pickaxe_list: GridContainer
 
-#var active_pickaxes := 0
 var active_rows: Array[PickaxeRow]
 
 signal game_over
@@ -53,34 +52,26 @@ func _on_pickaxe_finished(row: PickaxeRow):
 	if active_rows.has(row):
 		active_rows.erase(row)
 		
-		if active_rows.size() <= 0:
-			move_on()
+	if active_rows.size() <= 0:
+		move_on()
 			
 func move_on():
+	if game_window.moving: return
+	
 	active_rows.clear()
 	game_window.move_to_next_column()
 	await game_window.transition_over
 	
 	var still_has_one := false
+	
 	for c in get_children():
 		var row_node = c as PickaxeRow
 		if row_node and row_node.pickaxe_data:
 			still_has_one = true
 			active_rows.push_back(row_node)
-			row_node.start_mining()
-	
+			
+	for row_node in active_rows:
+		row_node.start_mining()
+		
 	if not still_has_one and _is_inventory_empty():
 		game_over.emit()
-	
-#func new_pickaxe(pick_row: PickaxeRow):
-	#active_pickaxes += 1
-	#
-	#if not pick_row.finished_mining.is_connected(_on_row_finished):
-		#pick_row.finished_mining.connect(_on_row_finished)
-#
-#func _on_row_finished():
-	#active_pickaxes -= 1
-	#
-	#if active_pickaxes <= 0:
-		#active_pickaxes = 0
-		#

@@ -1,5 +1,7 @@
 extends GridContainer
 
+class_name PickaxeList
+
 const PICKAXE_SLOT = preload("res://scenes/ui/pickaxe_slot.tscn")
 
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:

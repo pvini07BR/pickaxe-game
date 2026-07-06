@@ -37,8 +37,8 @@ func _on_craft_button_pressed() -> void:
 		
 		for ingredient in sel_recipe.ingredients:
 			if game.inventory.has(ingredient.item):
-				if game.inventory[ingredient.item] >= ingredient.amount:
-					game.inventory[ingredient.item] -= ingredient.amount + 1
+				if game.inventory[ingredient.item] + 1 >= ingredient.amount:
+					game.inventory[ingredient.item] -= ingredient.amount
 					if game.inventory[ingredient.item] < 0:
 						game.inventory.erase(ingredient.item)
 				else:
@@ -50,6 +50,6 @@ func _on_craft_button_pressed() -> void:
 		
 		if can_craft:
 			game.add_item(sel_recipe.output)
-			game.refresh_inventory_itemlist()
+			game.refresh_inventory()
 		else:
 			print("You don't have the ingredients!")

@@ -4,10 +4,10 @@ const ITEM_SLOT = preload("res://scenes/ui/item_slot.tscn")
 
 @export var inventory: Dictionary[Item, int]
 
+@onready var pickaxe_crafter: PanelContainer = $PickaxeCrafter
 @onready var inventory_gcontainer: GridContainer = $HBoxContainer/VBoxContainer2/Inventory/PanelContainer/MarginContainer/GridContainer
 @onready var pickaxes_gcontainer: GridContainer = $HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer
 
-@onready var crafting_window: PanelContainer = $CraftingWindow
 @onready var bg_fade: ColorRect = $BGFade
 @onready var game_over_popup: PanelContainer = $GameOverPopup
 
@@ -19,7 +19,7 @@ func refresh_inventory():
 	for item in inventory.keys():
 		var slot = ITEM_SLOT.instantiate() as ItemSlot
 		inventory_gcontainer.add_child(slot)
-		slot.set_item(item, inventory[item])
+		slot.set_item(item, inventory[item] + 1)
 
 func _ready() -> void:
 	refresh_inventory()
@@ -32,13 +32,13 @@ func add_item(item: Item):
 		
 	refresh_inventory()
 
-func _on_crafting_button_pressed() -> void:
+func _on_craft_pickaxe_button_pressed() -> void:
 	bg_fade.visible = true
-	crafting_window.visible = true
+	pickaxe_crafter.visible = true
 
 func _on_game_over() -> void:
 	bg_fade.visible = true
-	crafting_window.visible = false
+	pickaxe_crafter.visible = false
 	game_over_popup.visible = true
 
 func _on_new_game_button_pressed() -> void:
