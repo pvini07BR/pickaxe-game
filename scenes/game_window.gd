@@ -21,8 +21,11 @@ func generate_block(x: int, y: int):
 	var flip_h_flag = TileSetAtlasSource.TRANSFORM_FLIP_H if flip_h else 0
 	
 	var block_id = 0
-	if randi_range(0, 100) < 15:
+	var range = randi_range(0, 100)
+	if range < 15:
 		block_id = 1
+	elif range > 15 and range < 30:
+		block_id = 2
 	
 	set_cell(Vector2i(x, y), 0, Vector2i(block_id, -1 if block_id == -1 else 0), flip_h_flag)
 

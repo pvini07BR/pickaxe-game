@@ -3,19 +3,19 @@ extends PanelContainer
 const PICKAXE_SLOT = preload("res://scenes/ui/pickaxe_slot.tscn")
 const ITEM_SLOT = preload("res://scenes/ui/item_slot.tscn")
 
+@export var inventory: Inventory
 @export var pickaxe_list: PickaxeList
 @export var heads: Array[HeadMaterial]
 @export var handles: Array[HandleMaterial]
 
-@onready var head_option: OptionButton = $VBoxContainer/HBoxContainer2/VBoxContainer2/HeadContainer/OptionButton
-@onready var handle_option: OptionButton = $VBoxContainer/HBoxContainer2/VBoxContainer2/HandleContainer/OptionButton
+@onready var head_option: OptionButton = $VBoxContainer/HBoxContainer2/VBoxContainer/HeadContainer/OptionButton
+@onready var handle_option: OptionButton = $VBoxContainer/HBoxContainer2/VBoxContainer/HandleContainer/OptionButton
 
-@onready var head_texture: TextureRect = $VBoxContainer/HBoxContainer2/VBoxContainer/Control/HeadTexture
-@onready var handle_texture: TextureRect = $VBoxContainer/HBoxContainer2/VBoxContainer/Control/HandleTexture
+@onready var head_texture: TextureRect = $VBoxContainer/HBoxContainer2/Control/HeadTexture
+@onready var handle_texture: TextureRect = $VBoxContainer/HBoxContainer2/Control/HandleTexture
 
-@onready var ingredients_container: HBoxContainer = $VBoxContainer/HBoxContainer2/VBoxContainer/IngredientsContainer
-
-@onready var game = get_tree().root.get_node("Main")
+@onready var ingredients_container: GridContainer = $VBoxContainer/IngredientsContainer
+@onready var missing_ingredients_text: Label = $VBoxContainer/MissingIngredientsText
 
 var ingredients: Dictionary[Item, int]
 
@@ -69,11 +69,11 @@ func _on_handle_option_selected(index: int) -> void:
 func _on_make_pickaxe_button_pressed() -> void:
 	var can_craft := true
 	for item in ingredients:
-		if game.inventory.has(item):
-			if game.inventory[item] + 1 >= ingredients[item]:
-				game.inventory[item] -= ingredients[item]
-				if game.inventory[item] < 0:
-					game.inventory.erase(item)
+		if inventory.inventory.has(item):
+			if inventory.inventory[item] + 1 >= ingredients[item]:
+				inventory.inventory[item] -= ingredients[item]
+				if inventory.inventory[item] < 0:
+					inventory.inventory.erase(item)
 			else:
 				can_craft = false
 				break
@@ -82,7 +82,8 @@ func _on_make_pickaxe_button_pressed() -> void:
 			break
 	
 	if can_craft:
-		game.refresh_inventory()
+		missing_ingredients_text.visible = false
+		inventory.refresh_inventory()
 		var slot = PICKAXE_SLOT.instantiate() as PickaxeSlot
 		var new_pick = Pickaxe.new()
 		new_pick.head_material = heads[head_option.get_selected_id()]
@@ -90,8 +91,9 @@ func _on_make_pickaxe_button_pressed() -> void:
 		slot.pickaxe_data = new_pick
 		pickaxe_list.add_child(slot)
 	else:
-		print("Not enough resoruces!")
+		missing_ingredients_text.visible = true
 
 func _on_close_button_pressed() -> void:
 	self.visible = false
+	missing_ingredients_text.visible = false
 	get_parent().get_node("BGFade").visible = false

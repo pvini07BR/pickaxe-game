@@ -1,44 +1,39 @@
 [gd_scene format=3 uid="uid://dvi3r5v64aci4"]
 
 [ext_resource type="Script" uid="uid://dbancwdikm581" path="res://scenes/main.gd" id="1_a8y0u"]
+[ext_resource type="Script" uid="uid://b40fa8c6h0nsf" path="res://scenes/inventory.gd" id="2_jbj1t"]
 [ext_resource type="Script" uid="uid://y66b2oetyvja" path="res://scripts/pickaxe.gd" id="3_a8y0u"]
+[ext_resource type="Resource" uid="uid://dx6tcn8xiweqt" path="res://resources/blockdefs/stone.tres" id="3_jbj1t"]
 [ext_resource type="Resource" uid="uid://cp3110f43u74s" path="res://resources/handles/wood.tres" id="4_jbj1t"]
+[ext_resource type="Resource" uid="uid://bsiye53xjny5l" path="res://resources/blockdefs/coal_ore.tres" id="4_muem4"]
 [ext_resource type="Script" uid="uid://bm61br2d8bb3n" path="res://scenes/game_window.gd" id="5_a8y0u"]
+[ext_resource type="Resource" uid="uid://dnf1h4jhtfutb" path="res://resources/blockdefs/iron_ore.tres" id="5_jbj1t"]
 [ext_resource type="Resource" uid="uid://ce2spgyqxnca6" path="res://resources/heads/stone.tres" id="5_muem4"]
-[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="6_0ld40"]
-[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="7_gqmmt"]
 [ext_resource type="Script" uid="uid://qik3vff0aphm" path="res://scenes/pickaxe_rows.gd" id="7_jbj1t"]
-[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="8_yc10j"]
 [ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="9_jscy8"]
 [ext_resource type="PackedScene" uid="uid://0rvh7tbcso0t" path="res://scenes/ui/pickaxe_row.tscn" id="10_trceg"]
+[ext_resource type="PackedScene" uid="uid://d2pofrvfad1pm" path="res://scenes/pickaxe_crafter.tscn" id="14_a8y0u"]
 [ext_resource type="Script" uid="uid://d783dq5sn4ej" path="res://scenes/pickaxe_list.gd" id="14_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://bbq7qmeu6md78" path="res://scenes/ui/pickaxe_slot.tscn" id="14_muem4"]
-[ext_resource type="Resource" uid="uid://rt7tl8xqlje" path="res://resources/heads/iron.tres" id="16_dp3eg"]
-[ext_resource type="Script" uid="uid://cp0scohhucn26" path="res://scenes/pickaxe_maker.gd" id="18_dp3eg"]
-[ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="19_0ld40"]
-[ext_resource type="Script" uid="uid://cu01i3gcjqnxl" path="res://scripts/handle_material.gd" id="20_yc10j"]
-[ext_resource type="Resource" uid="uid://cqgdx70kqeywo" path="res://resources/handles/stone.tres" id="21_jscy8"]
-
-[sub_resource type="Theme" id="Theme_ycdy4"]
-default_font_size = 12
+[ext_resource type="PackedScene" uid="uid://ccoiqso75biv2" path="res://scenes/furnace.tscn" id="15_jkv2x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("9_jscy8")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-0:0/0/custom_data_0 = ExtResource("6_0ld40")
+0:0/0/custom_data_0 = ExtResource("3_jbj1t")
 1:0/0 = 0
-1:0/0/custom_data_0 = ExtResource("7_gqmmt")
+1:0/0/custom_data_0 = ExtResource("4_muem4")
 2:0/0 = 0
-2:0/0/custom_data_0 = ExtResource("8_yc10j")
+2:0/0/custom_data_0 = ExtResource("5_jbj1t")
 
 [sub_resource type="TileSet" id="TileSet_oev6u"]
 tile_size = Vector2i(32, 32)
-custom_data_layer_0/name = "item"
+custom_data_layer_0/name = "blockdef"
 custom_data_layer_0/type = 24
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
-[sub_resource type="Resource" id="Resource_5riyp"]
+[sub_resource type="Resource" id="Resource_dp3eg"]
 script = ExtResource("3_a8y0u")
 head_material = ExtResource("5_muem4")
 handle_material = ExtResource("4_jbj1t")
@@ -55,34 +50,45 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_ycdy4")
 script = ExtResource("1_a8y0u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1143137724]
+[node name="Inventory" type="Node" parent="." unique_id=789295489 node_paths=PackedStringArray("inventory_gcontainer")]
+script = ExtResource("2_jbj1t")
+inventory_gcontainer = NodePath("../MarginContainer/HBoxContainer/VBoxContainer2/Inventory/PanelContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=395349655]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=920713456]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1143137724]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=920713456]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=777326669]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=777326669]
 layout_mode = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 21
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="GameWindow" type="ColorRect" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=1062803317]
+[node name="GameWindow" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=1062803317]
 clip_children = 1
 custom_minimum_size = Vector2(320, 192)
 custom_maximum_size = Vector2(320, 192)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="HBoxContainer/VBoxContainer/MarginContainer/GameWindow" unique_id=1605409858]
+[node name="TileMapLayer" type="TileMapLayer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow" unique_id=1605409858]
 tile_set = SubResource("TileSet_oev6u")
 occlusion_enabled = false
 rendering_quadrant_size = 1
@@ -90,98 +96,94 @@ collision_enabled = false
 navigation_enabled = false
 script = ExtResource("5_a8y0u")
 
-[node name="PickaxeRows" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=894763855 node_paths=PackedStringArray("game_window", "pickaxe_list")]
+[node name="PickaxeRows" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=894763855 node_paths=PackedStringArray("game_window", "pickaxe_list")]
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("7_jbj1t")
 game_window = NodePath("../GameWindow/TileMapLayer")
-pickaxe_list = NodePath("../../../VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer")
+pickaxe_list = NodePath("../../../VBoxContainer2/Pickaxes/PanelContainer/GridContainer")
 
-[node name="PickaxeRow" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1967544470 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1967544470 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="PickaxeRow2" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=109995635 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow2" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=109995635 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="PickaxeRow3" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=726538690 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow3" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=726538690 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="PickaxeRow4" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=845368135 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow4" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=845368135 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="PickaxeRow5" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=219015564 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow5" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=219015564 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="PickaxeRow6" parent="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1352667366 node_paths=PackedStringArray("game_window") instance=ExtResource("10_trceg")]
+[node name="PickaxeRow6" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" unique_id=1352667366 node_paths=PackedStringArray("game_window", "inventory") instance=ExtResource("10_trceg")]
 layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
+inventory = NodePath("../../../../../../Inventory")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1488827999]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1488827999]
 layout_mode = 2
 
-[node name="CraftPickaxeButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1336846749]
+[node name="CraftPickaxeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1336846749]
 layout_mode = 2
 text = "Craft Pickaxe"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=603370547]
+[node name="FurnaceButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2106412431]
+layout_mode = 2
+text = "Furnace"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=603370547]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Inventory" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=59951214]
+[node name="Inventory" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=59951214]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Inventory" unique_id=1910363840]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Inventory" unique_id=1910363840]
 layout_mode = 2
 text = "Inventory"
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Inventory" unique_id=1267657486]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Inventory" unique_id=1267657486]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Inventory/PanelContainer" unique_id=380773071]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer2/Inventory/PanelContainer/MarginContainer" unique_id=570413938]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Inventory/PanelContainer" unique_id=570413938]
 layout_mode = 2
 columns = 5
 
-[node name="Pickaxes" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=1997109389]
+[node name="Pickaxes" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1997109389]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1672420194]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1672420194]
 layout_mode = 2
 text = "Inactive Pickaxes"
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1903189753]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1903189753]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer" unique_id=210015071]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer" unique_id=617339522]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer" unique_id=617339522]
 layout_mode = 2
 columns = 5
 script = ExtResource("14_dp3eg")
 
-[node name="PickaxeSlot" parent="HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer" unique_id=15995619 instance=ExtResource("14_muem4")]
+[node name="PickaxeSlot" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/GridContainer" unique_id=15995619 instance=ExtResource("14_muem4")]
 layout_mode = 2
-pickaxe_data = SubResource("Resource_5riyp")
+pickaxe_data = SubResource("Resource_dp3eg")
 
 [node name="BGFade" type="ColorRect" parent="." unique_id=435194785]
 visible = false
@@ -194,91 +196,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 
-[node name="PickaxeCrafter" type="PanelContainer" parent="." unique_id=7064068 node_paths=PackedStringArray("pickaxe_list")]
+[node name="PickaxeCrafter" parent="." unique_id=547712698 node_paths=PackedStringArray("inventory", "pickaxe_list") instance=ExtResource("14_a8y0u")]
 visible = false
-z_index = 2
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("18_dp3eg")
-pickaxe_list = NodePath("../HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer")
-heads = Array[ExtResource("19_0ld40")]([ExtResource("5_muem4"), ExtResource("16_dp3eg")])
-handles = Array[ExtResource("20_yc10j")]([ExtResource("21_jscy8")])
+offset_left = -106.0
+offset_top = -92.0
+offset_right = 106.0
+offset_bottom = 92.0
+inventory = NodePath("../Inventory")
+pickaxe_list = NodePath("../MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/GridContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PickaxeCrafter" unique_id=368123142]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="PickaxeCrafter/VBoxContainer" unique_id=929800706]
-layout_mode = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2" unique_id=1086460967]
-layout_mode = 2
-alignment = 1
-
-[node name="HeadContainer" type="HBoxContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2" unique_id=1823114993]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HeadContainer" unique_id=1658421214]
-custom_minimum_size = Vector2(45, 0)
-layout_mode = 2
-text = "Head:"
-
-[node name="OptionButton" type="OptionButton" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HeadContainer" unique_id=1412559197]
-layout_mode = 2
-
-[node name="HandleContainer" type="HBoxContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2" unique_id=1640498874]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HandleContainer" unique_id=433453727]
-layout_mode = 2
-text = "Handle:"
-
-[node name="OptionButton" type="OptionButton" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HandleContainer" unique_id=168307137]
-layout_mode = 2
-
-[node name="VSeparator" type="VSeparator" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2" unique_id=1372788728]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2" unique_id=1535978238]
-layout_mode = 2
-
-[node name="Control" type="CenterContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1941452918]
-layout_mode = 2
-
-[node name="HandleTexture" type="TextureRect" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer/Control" unique_id=1290802945]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="HeadTexture" type="TextureRect" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer/Control" unique_id=1599931231]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1164323138]
-layout_mode = 2
-text = "Ingredients:"
-
-[node name="IngredientsContainer" type="HBoxContainer" parent="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1028092991]
-custom_minimum_size = Vector2(119, 37)
-layout_mode = 2
-
-[node name="MakePickaxeButton" type="Button" parent="PickaxeCrafter/VBoxContainer" unique_id=65888933]
-layout_mode = 2
-text = "Make Pickaxe"
-
-[node name="CloseButton" type="Button" parent="PickaxeCrafter/VBoxContainer" unique_id=122105765]
-layout_mode = 2
-text = "Close"
+[node name="Furnace" parent="." unique_id=1915778861 node_paths=PackedStringArray("inventory") instance=ExtResource("15_jkv2x")]
+visible = false
+layout_mode = 1
+inventory = NodePath("../Inventory")
 
 [node name="GameOverPopup" type="PanelContainer" parent="." unique_id=2088812055]
 visible = false
@@ -296,35 +227,28 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="GameOverPopup" unique_id=19027827]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPopup" unique_id=543713843]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPopup/MarginContainer" unique_id=543713843]
+[node name="Label" type="Label" parent="GameOverPopup/VBoxContainer" unique_id=1892523566]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=1892523566]
-layout_mode = 2
+size_flags_vertical = 3
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_ycdy4")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=901393285]
+[node name="Label2" type="Label" parent="GameOverPopup/VBoxContainer" unique_id=901393285]
 layout_mode = 2
+size_flags_vertical = 3
 text = "You ran out of pickaxes!"
 horizontal_alignment = 1
 
-[node name="NewGameButton" type="Button" parent="GameOverPopup/MarginContainer/VBoxContainer" unique_id=1648574873]
+[node name="NewGameButton" type="Button" parent="GameOverPopup/VBoxContainer" unique_id=1648574873]
 layout_mode = 2
 text = "New Game"
 
-[connection signal="game_over" from="HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" to="." method="_on_game_over"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/CraftPickaxeButton" to="." method="_on_craft_pickaxe_button_pressed"]
-[connection signal="item_selected" from="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HeadContainer/OptionButton" to="PickaxeCrafter" method="_on_head_option_selected"]
-[connection signal="item_selected" from="PickaxeCrafter/VBoxContainer/HBoxContainer2/VBoxContainer2/HandleContainer/OptionButton" to="PickaxeCrafter" method="_on_handle_option_selected"]
-[connection signal="pressed" from="PickaxeCrafter/VBoxContainer/MakePickaxeButton" to="PickaxeCrafter" method="_on_make_pickaxe_button_pressed"]
-[connection signal="pressed" from="PickaxeCrafter/VBoxContainer/CloseButton" to="PickaxeCrafter" method="_on_close_button_pressed"]
-[connection signal="pressed" from="GameOverPopup/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="game_over" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" to="." method="_on_game_over"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/CraftPickaxeButton" to="." method="_on_craft_pickaxe_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/FurnaceButton" to="." method="_on_furnace_button_pressed"]
+[connection signal="pressed" from="GameOverPopup/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

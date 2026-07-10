@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bbq7qmeu6md78"]
 
+[ext_resource type="StyleBox" uid="uid://c44ardsmgqclx" path="res://resources/alt_container_theme.tres" id="1_p3r5f"]
 [ext_resource type="Script" uid="uid://d7gsq577iv7s" path="res://scenes/ui/pickaxe_slot.gd" id="1_uc2ab"]
 
 [node name="PickaxeSlot" type="PanelContainer" unique_id=15995619]
@@ -9,37 +10,35 @@ anchor_right = 0.066
 anchor_bottom = 0.13900001
 offset_right = -0.23999786
 offset_bottom = -0.04000473
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = ExtResource("1_p3r5f")
 script = ExtResource("1_uc2ab")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1934926967]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=582283299]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=582283299]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=784741267]
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=784741267]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="Handle" type="TextureRect" parent="MarginContainer/VBoxContainer/Control" unique_id=653878087]
+[node name="Handle" type="TextureRect" parent="VBoxContainer/Control" unique_id=653878087]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 stretch_mode = 2
 
-[node name="Head" type="TextureRect" parent="MarginContainer/VBoxContainer/Control" unique_id=78315957]
+[node name="Head" type="TextureRect" parent="VBoxContainer/Control" unique_id=78315957]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 stretch_mode = 2
 
-[node name="DurabilityProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=1998506015]
+[node name="DurabilityProgressBar" type="ProgressBar" parent="VBoxContainer" unique_id=1998506015]
 layout_mode = 2
 mouse_filter = 1
 show_percentage = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

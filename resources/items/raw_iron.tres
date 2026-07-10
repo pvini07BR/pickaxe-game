@@ -1,14 +1,10 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://ddechrv7c5w36"]
 
-[ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="1_k2ci3"]
+[ext_resource type="Texture2D" uid="uid://c4nv3oapqwi42" path="res://assets/sprites/items/raw_iron.png" id="1_k2ci3"]
 [ext_resource type="Script" uid="uid://l7lispulo2de" path="res://scripts/item.gd" id="2_6n625"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6yv2l"]
-atlas = ExtResource("1_k2ci3")
-region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("2_6n625")
 name = "Raw Iron"
-icon = SubResource("AtlasTexture_6yv2l")
+icon = ExtResource("1_k2ci3")
 metadata/_custom_type_script = "uid://l7lispulo2de"

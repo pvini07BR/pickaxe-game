@@ -19,11 +19,9 @@ func _ready() -> void:
 	progress_bar.max_value = pickaxe_data.handle_material.durability
 	progress_bar.value = pickaxe_data.durability
 	pickaxe_data.durability_changed.connect(_on_durability_changed)
-	
-	anim.speed_scale = get_anim_speed_scale()
-	
-func get_anim_speed_scale() -> float:
-	return (8.0 / 2.0) / pickaxe_data.head_material.mining_speed
+		
+func set_anim_speed_scale(factor: float):
+	anim.speed_scale = ((8.0 / 2.0) / pickaxe_data.head_material.mining_speed) / factor
 	
 func _on_durability_changed(value: int):
 	progress_bar.value = value

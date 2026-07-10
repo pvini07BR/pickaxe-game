@@ -1,44 +1,35 @@
 extends Control
 
-const ITEM_SLOT = preload("res://scenes/ui/item_slot.tscn")
-
-@export var inventory: Dictionary[Item, int]
-
 @onready var pickaxe_crafter: PanelContainer = $PickaxeCrafter
-@onready var inventory_gcontainer: GridContainer = $HBoxContainer/VBoxContainer2/Inventory/PanelContainer/MarginContainer/GridContainer
-@onready var pickaxes_gcontainer: GridContainer = $HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/MarginContainer/GridContainer
+@onready var furnace: PanelContainer = $Furnace
 
 @onready var bg_fade: ColorRect = $BGFade
 @onready var game_over_popup: PanelContainer = $GameOverPopup
 
-@onready var game_window: ColorRect = $HBoxContainer/VBoxContainer/MarginContainer/GameWindow
-
-func refresh_inventory():
-	for c in inventory_gcontainer.get_children():
-		c.queue_free()
-	for item in inventory.keys():
-		var slot = ITEM_SLOT.instantiate() as ItemSlot
-		inventory_gcontainer.add_child(slot)
-		slot.set_item(item, inventory[item] + 1)
-
-func _ready() -> void:
-	refresh_inventory()
-
-func add_item(item: Item):
-	if inventory.has(item):
-		inventory[item] += 1
-	else:
-		inventory[item] = 0
+@onready var game_window: ColorRect = $MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and pickaxe_crafter.visible:
+		bg_fade.visible = false
+		pickaxe_crafter.missing_ingredients_text.visible = false
+		pickaxe_crafter.visible = false
 		
-	refresh_inventory()
+	if event.is_action_pressed("ui_cancel") and furnace.visible:
+		bg_fade.visible = false
+		furnace.visible = false
 
 func _on_craft_pickaxe_button_pressed() -> void:
 	bg_fade.visible = true
 	pickaxe_crafter.visible = true
 
+func _on_furnace_button_pressed() -> void:
+	bg_fade.visible = true
+	furnace.visible = true
+
 func _on_game_over() -> void:
 	bg_fade.visible = true
 	pickaxe_crafter.visible = false
+	furnace.visible = false
 	game_over_popup.visible = true
 
 func _on_new_game_button_pressed() -> void:

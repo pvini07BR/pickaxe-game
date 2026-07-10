@@ -6,11 +6,11 @@ const PICKAXE_ACTOR = preload("res://scenes/pickaxe_actor.tscn")
 const PICK_BREAK_PARTICLES = preload("res://scenes/pickaxe_break_particles.tscn")
 
 @export var game_window: GameWindow
+@export var inventory: Inventory
 
 var actor: PickaxeActor = null
 var finished := false
 
-@onready var game = get_tree().root.get_node("Main")
 @onready var cracks: Sprite2D = $Cracks
 @onready var particles: CPUParticles2D = $Particles
 
@@ -27,10 +27,16 @@ var pickaxe_data: Pickaxe = null:
 				actor.pickaxe_hit.connect(_on_pickaxe_hit)
 				add_child(actor)
 				
-				particles.lifetime = (actor.anim.get_animation("mining").length * actor.get_anim_speed_scale()) / 4.0
+				var data = game_window.get_cell_tile_data(Vector2i(game_window.column, get_index()))
+				if data:
+					var blockdef = data.get_custom_data("blockdef") as BlockDef
+					actor.set_anim_speed_scale(blockdef.mining_speed_factor)
+					particles.lifetime = (actor.anim.get_animation("mining").length * actor.anim.speed_scale) / 4.0
 				pickaxe_added.emit(self)
+				self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			else:
 				if actor: actor.queue_free()
+				self.mouse_default_cursor_shape = Control.CURSOR_ARROW
 				pickaxe_removed.emit(self)
 		pickaxe_data = value
 		
@@ -46,6 +52,10 @@ func start_mining():
 		finished_mining.emit()
 		finished = true
 	else:
+		var data = game_window.get_cell_tile_data(Vector2i(game_window.column, get_index()))
+		if data:
+			var blockdef = data.get_custom_data("blockdef") as BlockDef
+			actor.set_anim_speed_scale(blockdef.mining_speed_factor)
 		actor.anim.play("mining")
 
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
@@ -57,16 +67,12 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	
 	if is_valid:
 		color.a = 0.5
-	else:
-		color.a = 0
 		
 	return is_valid
 	
 func _drop_data(at_position: Vector2, data: Variant) -> void:
 	if game_window.moving:
 		return
-		
-	color.a = 0
 	
 	var slot = data["slot"]
 	var pick_data = data["data"] as Pickaxe
@@ -79,6 +85,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 		slot.pickaxe_data = null
 		
 	pickaxe_data = pick_data
+	color.a = 0.25
 	
 func _get_drag_data(at_position: Vector2) -> Variant:
 	if !pickaxe_data or game_window.moving:
@@ -112,8 +119,8 @@ func _on_pickaxe_hit():
 	else:
 		var data = game_window.get_cell_tile_data(Vector2i(game_window.column, get_index()))
 		if data:
-			var item = data.get_custom_data("item") as Item
-			game.add_item(item)
+			var blockdef = data.get_custom_data("blockdef") as BlockDef
+			inventory.add_item(blockdef.item, 1)
 			
 		game_window.erase_cell(Vector2i(game_window.column, get_index()))
 		cracks.frame = 0
@@ -140,3 +147,7 @@ func _notification(what: int) -> void:
 
 func _on_mouse_exited() -> void:
 	color.a = 0
+
+func _on_mouse_entered() -> void:
+	if pickaxe_data:
+		color.a = 0.25
