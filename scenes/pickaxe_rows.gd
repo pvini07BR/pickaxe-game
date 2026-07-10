@@ -31,6 +31,11 @@ func _on_pickaxe_removed(row: PickaxeRow):
 	if active_rows.has(row):
 		active_rows.erase(row)
 		
+		# This is needed for when you switch pickaxes
+		# between rows, so it doesn't trigger a
+		# game over right away
+		await get_tree().process_frame
+		
 		var has_remaining_pickaxes := false
 		var all_remaining_finished := true
 		
@@ -57,6 +62,10 @@ func _on_pickaxe_finished(row: PickaxeRow):
 			
 func move_on():
 	if game_window.moving: return
+	
+	for c in get_children():
+		if c is PickaxeRow:
+			c.cracks.frame = 0
 	
 	active_rows.clear()
 	game_window.move_to_next_column()

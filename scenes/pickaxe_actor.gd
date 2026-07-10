@@ -10,6 +10,8 @@ class_name PickaxeActor
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
 
+signal pickaxe_hit
+
 func _ready() -> void:
 	head_sprite.texture = pickaxe_data.head_material.texture
 	handle_sprite.texture = pickaxe_data.handle_material.texture
@@ -18,11 +20,13 @@ func _ready() -> void:
 	progress_bar.value = pickaxe_data.durability
 	pickaxe_data.durability_changed.connect(_on_durability_changed)
 	
-	anim.speed_scale = (8.0 / 2.0) / pickaxe_data.head_material.mining_speed
+	anim.speed_scale = get_anim_speed_scale()
+	
+func get_anim_speed_scale() -> float:
+	return (8.0 / 2.0) / pickaxe_data.head_material.mining_speed
 	
 func _on_durability_changed(value: int):
 	progress_bar.value = value
 
 func _on_pickaxe_hit():
-	if get_parent().cracks.frame < 7:
-		get_parent().cracks.frame += 1
+	pickaxe_hit.emit()

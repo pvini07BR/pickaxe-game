@@ -1,7 +1,19 @@
 [gd_scene format=3 uid="uid://0rvh7tbcso0t"]
 
 [ext_resource type="Script" uid="uid://dkcp16yw2n6oq" path="res://scenes/ui/pickaxe_row.gd" id="1_7diid"]
+[ext_resource type="Shader" uid="uid://njr6cuwurnd7" path="res://scenes/ui/pickaxe_row_particles.gdshader" id="3_l4873"]
 [ext_resource type="Texture2D" uid="uid://do6g8r1g8rx04" path="res://assets/sprites/cracks.png" id="3_ml3qn"]
+[ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="3_qx7uy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ml3qn"]
+shader = ExtResource("3_l4873")
+shader_parameter/atlas_count = 3
+shader_parameter/atlas_id = 0
+shader_parameter/particle_size = 6
+
+[sub_resource type="Gradient" id="Gradient_ml3qn"]
+offsets = PackedFloat32Array(0.74910396, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="PickaxeRow" type="ColorRect" unique_id=845368135]
 custom_minimum_size = Vector2(0, 32)
@@ -9,15 +21,11 @@ custom_maximum_size = Vector2(-1, 32)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 164.0
-offset_bottom = -164.0
+offset_bottom = -328.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("1_7diid")
-
-[node name="MiningTimer" type="Timer" parent="." unique_id=504179998]
-one_shot = true
 
 [node name="Cracks" type="Sprite2D" parent="." unique_id=1671676286]
 modulate = Color(1, 1, 1, 0.5019608)
@@ -25,5 +33,23 @@ position = Vector2(16, 16)
 texture = ExtResource("3_ml3qn")
 hframes = 8
 
+[node name="Particles" type="CPUParticles2D" parent="." unique_id=556785732]
+material = SubResource("ShaderMaterial_ml3qn")
+position = Vector2(16, 16)
+emitting = false
+amount = 64
+texture = ExtResource("3_qx7uy")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(16, 16)
+direction = Vector2(0, -1)
+spread = 22.5
+initial_velocity_max = 150.0
+angular_velocity_max = 90.57
+angle_max = 180.0
+scale_amount_min = 0.1
+color_ramp = SubResource("Gradient_ml3qn")
+
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
