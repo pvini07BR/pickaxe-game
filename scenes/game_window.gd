@@ -7,8 +7,9 @@ const WINDOW_SIZE := Vector2i(10, 6)
 var column := 0
 var moving := false
 
-@export var seed := 0
+@export var seed := Tooltip.seed
 
+signal seed_ready(seed: int)
 signal transition_over
 
 func get_column() -> int:
@@ -30,8 +31,10 @@ func generate_block(x: int, y: int):
 	set_cell(Vector2i(x, y), 0, Vector2i(block_id, -1 if block_id == -1 else 0), flip_h_flag)
 
 func _ready() -> void:
-	seed = randi()
-	print("Seed: " + str(seed))
+	if seed == 0:
+		seed = randi()
+		
+	seed_ready.emit(seed)
 	
 	for y in WINDOW_SIZE.y:
 		for x in WINDOW_SIZE.x:

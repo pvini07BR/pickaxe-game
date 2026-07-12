@@ -9,6 +9,6 @@ region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_6yv2l")
-name = "Stone"
+name = "MATERIAL_STONE"
 icon = SubResource("AtlasTexture_6yv2l")
 metadata/_custom_type_script = "uid://l7lispulo2de"

@@ -67,23 +67,10 @@ func _on_handle_option_selected(index: int) -> void:
 	calculate_ingredients()
 
 func _on_make_pickaxe_button_pressed() -> void:
-	var can_craft := true
-	for item in ingredients:
-		if inventory.inventory.has(item):
-			if inventory.inventory[item] + 1 >= ingredients[item]:
-				inventory.inventory[item] -= ingredients[item]
-				if inventory.inventory[item] < 0:
-					inventory.inventory.erase(item)
-			else:
-				can_craft = false
-				break
-		else:
-			can_craft = false
-			break
+	var can_craft = inventory.consume_ingredients(ingredients)
 	
 	if can_craft:
 		missing_ingredients_text.visible = false
-		inventory.refresh_inventory()
 		var slot = PICKAXE_SLOT.instantiate() as PickaxeSlot
 		var new_pick = Pickaxe.new()
 		new_pick.head_material = heads[head_option.get_selected_id()]

@@ -15,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://d2pofrvfad1pm" path="res://scenes/pickaxe_crafter.tscn" id="14_a8y0u"]
 [ext_resource type="Script" uid="uid://d783dq5sn4ej" path="res://scenes/pickaxe_list.gd" id="14_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://bbq7qmeu6md78" path="res://scenes/ui/pickaxe_slot.tscn" id="14_muem4"]
-[ext_resource type="PackedScene" uid="uid://ccoiqso75biv2" path="res://scenes/furnace.tscn" id="15_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://d14gyurwskdpl" path="res://scenes/furnace_manager.tscn" id="16_jbj1t"]
+[ext_resource type="StyleBox" uid="uid://c44ardsmgqclx" path="res://resources/alt_container_theme.tres" id="17_dp3eg"]
+[ext_resource type="Script" uid="uid://d21xthn4i5xh8" path="res://scenes/options.gd" id="17_muem4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("9_jscy8")
@@ -38,6 +40,18 @@ script = ExtResource("3_a8y0u")
 head_material = ExtResource("5_muem4")
 handle_material = ExtResource("4_jbj1t")
 metadata/_custom_type_script = "uid://y66b2oetyvja"
+
+[sub_resource type="LabelSettings" id="LabelSettings_muem4"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_wadyu"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_dp3eg"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ld40"]
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_ycdy4"]
 font_size = 35
@@ -133,16 +147,36 @@ layout_mode = 2
 game_window = NodePath("../../GameWindow/TileMapLayer")
 inventory = NodePath("../../../../../../Inventory")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1488827999]
+[node name="GameButtons" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1488827999]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="CraftPickaxeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/GameButtons" unique_id=1336846749]
+layout_mode = 2
+text = "BTN_CRAFT_PICKAXE"
+
+[node name="FurnaceButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/GameButtons" unique_id=2106412431]
+layout_mode = 2
+text = "BTN_FURNACE"
+
+[node name="MenuButtons" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1300738406]
 layout_mode = 2
 
-[node name="CraftPickaxeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1336846749]
+[node name="HowToPlayButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=943359723]
 layout_mode = 2
-text = "Craft Pickaxe"
+text = "BTN_TUTORIAL"
 
-[node name="FurnaceButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2106412431]
+[node name="LanguageButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=977633031]
 layout_mode = 2
-text = "Furnace"
+text = "BTN_LANGUAGE"
+
+[node name="ResetButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=1444483995]
+layout_mode = 2
+text = "BTN_RESET"
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=1794578491]
+layout_mode = 2
+text = "BTN_CREDITS"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=603370547]
 layout_mode = 2
@@ -154,7 +188,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Inventory" unique_id=1910363840]
 layout_mode = 2
-text = "Inventory"
+text = "LABEL_INVENTORY"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Inventory" unique_id=1267657486]
 layout_mode = 2
@@ -170,7 +204,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1672420194]
 layout_mode = 2
-text = "Inactive Pickaxes"
+text = "LABEL_INACTIVE_PICKAXES"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes" unique_id=1903189753]
 layout_mode = 2
@@ -206,10 +240,185 @@ offset_bottom = 92.0
 inventory = NodePath("../Inventory")
 pickaxe_list = NodePath("../MarginContainer/HBoxContainer/VBoxContainer2/Pickaxes/PanelContainer/GridContainer")
 
-[node name="Furnace" parent="." unique_id=1915778861 node_paths=PackedStringArray("inventory") instance=ExtResource("15_jkv2x")]
+[node name="FurnaceManager" parent="." unique_id=1156422504 node_paths=PackedStringArray("inventory") instance=ExtResource("16_jbj1t")]
 visible = false
 layout_mode = 1
 inventory = NodePath("../Inventory")
+
+[node name="Tutorial" type="PanelContainer" parent="." unique_id=224714392]
+visible = false
+z_index = 2
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -170.0
+offset_right = 150.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial" unique_id=1595509202]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tutorial/VBoxContainer" unique_id=1167762062]
+layout_mode = 2
+text = "BTN_TUTORIAL"
+label_settings = SubResource("LabelSettings_muem4")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Tutorial/VBoxContainer" unique_id=890944186]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("17_dp3eg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Tutorial/VBoxContainer/PanelContainer" unique_id=2041803104]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 9
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "LABEL_TUTORIAL"
+
+[node name="CloseTutorial" type="Button" parent="Tutorial/VBoxContainer" unique_id=1030602647]
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[node name="Language" type="PanelContainer" parent="." unique_id=888594093]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -29.5
+offset_right = 78.0
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_muem4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Language" unique_id=1737310522]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Language/VBoxContainer" unique_id=1468027670]
+layout_mode = 2
+text = "LABEL_SELECT_LANGUAGE"
+label_settings = SubResource("LabelSettings_wadyu")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Language/VBoxContainer" unique_id=434800261]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="EngButton" type="Button" parent="Language/VBoxContainer/VBoxContainer" unique_id=849077574]
+layout_mode = 2
+text = "English"
+
+[node name="PtButton" type="Button" parent="Language/VBoxContainer/VBoxContainer" unique_id=655393959]
+layout_mode = 2
+text = "Português"
+
+[node name="CloseButton" type="Button" parent="Language/VBoxContainer" unique_id=315744271]
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[node name="Credits" type="PanelContainer" parent="." unique_id=897462909]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -125.0
+offset_right = 142.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits" unique_id=2043001424]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer" unique_id=608223412]
+layout_mode = 2
+text = "BTN_CREDITS"
+label_settings = SubResource("LabelSettings_dp3eg")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="Credits/VBoxContainer" unique_id=1175152285]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "LABEL_CREDITS"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Credits/VBoxContainer" unique_id=1268245413]
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[node name="ResetMenu" type="PanelContainer" parent="." unique_id=1543541152]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -41.0
+offset_right = 53.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResetMenu" unique_id=761857946]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="ResetMenu/VBoxContainer" unique_id=1441386992]
+layout_mode = 2
+text = "LABEL_CONFIRM_RESET"
+label_settings = SubResource("LabelSettings_0ld40")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ResetMenu/VBoxContainer" unique_id=2068111682]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="ResetMenu/VBoxContainer/HBoxContainer2" unique_id=456929930]
+layout_mode = 2
+text = "LABEL_SEED"
+
+[node name="SeedSpinBox" type="SpinBox" parent="ResetMenu/VBoxContainer/HBoxContainer2" unique_id=2082343710]
+layout_mode = 2
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResetMenu/VBoxContainer" unique_id=1826961742]
+layout_mode = 2
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="ResetMenu/VBoxContainer/HBoxContainer" unique_id=801123032]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BTN_CANCEL"
+
+[node name="ResetButton" type="Button" parent="ResetMenu/VBoxContainer/HBoxContainer" unique_id=1540727196]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BTN_RESET"
 
 [node name="GameOverPopup" type="PanelContainer" parent="." unique_id=2088812055]
 visible = false
@@ -234,21 +443,48 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="GameOverPopup/VBoxContainer" unique_id=1892523566]
 layout_mode = 2
 size_flags_vertical = 3
-text = "GAME OVER"
+text = "LABEL_GAME_OVER"
 label_settings = SubResource("LabelSettings_ycdy4")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="GameOverPopup/VBoxContainer" unique_id=901393285]
 layout_mode = 2
 size_flags_vertical = 3
-text = "You ran out of pickaxes!"
+text = "LABEL_RAN_OUT"
 horizontal_alignment = 1
 
 [node name="NewGameButton" type="Button" parent="GameOverPopup/VBoxContainer" unique_id=1648574873]
 layout_mode = 2
-text = "New Game"
+text = "BTN_NEW_GAME"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=223212639]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = -3
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer" unique_id=1285846632]
+layout_mode = 2
+text = "v0.1.0 (Prototype)"
+
+[node name="SeedLabel" type="Label" parent="VBoxContainer" unique_id=1127706137]
+layout_mode = 2
+text = "Seed: 0"
+
+[connection signal="seed_ready" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow/TileMapLayer" to="." method="_on_tile_map_layer_seed_ready"]
 [connection signal="game_over" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" to="." method="_on_game_over"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/CraftPickaxeButton" to="." method="_on_craft_pickaxe_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/FurnaceButton" to="." method="_on_furnace_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/GameButtons/CraftPickaxeButton" to="." method="_on_craft_pickaxe_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/GameButtons/FurnaceButton" to="." method="_on_furnace_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons/LanguageButton" to="." method="_on_language_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuButtons/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Tutorial/VBoxContainer/CloseTutorial" to="." method="_on_close_tutorial_pressed"]
+[connection signal="pressed" from="Language/VBoxContainer/VBoxContainer/EngButton" to="Language" method="_on_eng_button_pressed"]
+[connection signal="pressed" from="Language/VBoxContainer/VBoxContainer/PtButton" to="Language" method="_on_pt_button_pressed"]
+[connection signal="pressed" from="Language/VBoxContainer/CloseButton" to="Language" method="_on_close_button_pressed"]
+[connection signal="meta_clicked" from="Credits/VBoxContainer/Label2" to="." method="_on_credits_richtext_meta_clicked"]
+[connection signal="pressed" from="Credits/VBoxContainer/CloseButton" to="." method="_on_close_credits_button_pressed"]
+[connection signal="pressed" from="ResetMenu/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_reset_cancel_button_pressed"]
+[connection signal="pressed" from="ResetMenu/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="GameOverPopup/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

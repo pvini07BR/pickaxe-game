@@ -10,6 +10,7 @@ const PICK_BREAK_PARTICLES = preload("res://scenes/pickaxe_break_particles.tscn"
 
 var actor: PickaxeActor = null
 var finished := false
+var hovered := false
 
 @onready var cracks: Sprite2D = $Cracks
 @onready var particles: CPUParticles2D = $Particles
@@ -132,11 +133,14 @@ func _on_pickaxe_hit():
 		cracks.flip_v = randi() % 2
 		pickaxe_data.durability -= 1
 		if pickaxe_data.durability <= 0:
+			Tooltip.hide_tooltip()
 			var pick_parts = PICK_BREAK_PARTICLES.instantiate()
 			pick_parts.pick_data = pickaxe_data
 			add_child(pick_parts)
 			pickaxe_data = null
 		else:
+			if hovered:
+				Tooltip.show_tooltip(tr("DURABILITY") + ' ' + str(pickaxe_data.durability) + '/' + str(pickaxe_data.handle_material.durability))
 			actor.anim.stop()
 		finished_mining.emit()
 		finished = true
@@ -145,9 +149,13 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_END:
 		color.a = 0
 
+func _on_mouse_entered() -> void:
+	hovered = true
+	if pickaxe_data:
+		Tooltip.show_tooltip(tr("DURABILITY") + ' ' + str(pickaxe_data.durability) + '/' + str(pickaxe_data.handle_material.durability))
+		color.a = 0.25
+		
 func _on_mouse_exited() -> void:
 	color.a = 0
-
-func _on_mouse_entered() -> void:
-	if pickaxe_data:
-		color.a = 0.25
+	hovered = false
+	Tooltip.hide_tooltip()

@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dml5do6t1plrm"
 
 [resource]
 script = ExtResource("1_4tsmk")
-name = "Stone"
+name = "MATERIAL_STONE"
 durability = 30
 texture = ExtResource("2_4tsmk")
 ingredients = Array[ExtResource("1_wtnmj")]([SubResource("Resource_muem4")])

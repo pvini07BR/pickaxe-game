@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dml5do6t1plrm"
 
 [resource]
 script = ExtResource("1_2k8sk")
-name = "Iron"
+name = "MATERIAL_IRON"
 mining_speed = 0.5
 texture = ExtResource("2_2k8sk")
 ingredients = Array[ExtResource("1_1ith6")]([SubResource("Resource_muem4")])

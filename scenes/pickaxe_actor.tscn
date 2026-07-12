@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://crbcsqx526urx"]
 
 [ext_resource type="Script" uid="uid://huwmlrx2p2hc" path="res://scenes/pickaxe_actor.gd" id="1_5fm6e"]
+[ext_resource type="Gradient" uid="uid://dqemqsj206j3t" path="res://resources/health_bar_gradient.tres" id="2_cwdc3"]
 
 [sub_resource type="Animation" id="Animation_58voa"]
 length = 0.5
@@ -82,6 +83,7 @@ texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5fm6e")
+health_gradient = ExtResource("2_cwdc3")
 
 [node name="Handle" type="TextureRect" parent="." unique_id=492318714]
 layout_mode = 0
@@ -107,6 +109,8 @@ offset_left = -32.0
 offset_top = 5.0
 offset_right = -28.0
 offset_bottom = 27.0
+value = 36.0
+rounded = true
 fill_mode = 3
 show_percentage = false
 

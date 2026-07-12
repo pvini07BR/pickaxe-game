@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_ks4to")
-name = "Wood"
-durability = 10
+name = "MATERIAL_WOOD"
+durability = 5
 texture = ExtResource("2_0bc68")
 metadata/_custom_type_script = "uid://cu01i3gcjqnxl"
