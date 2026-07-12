@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://0kxw2wu7iwp0"]
+
+[ext_resource type="Script" uid="uid://2a132p00d8ym" path="res://scenes/pickaxe_break_particles.gd" id="1_k3p7n"]
+[ext_resource type="Texture2D" uid="uid://bqwntnl6ehk6u" path="res://assets/sprites/handles/wood.png" id="2_efsu7"]
+[ext_resource type="Texture2D" uid="uid://clc34vdc4bie3" path="res://assets/sprites/heads/stone.png" id="3_nygoa"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8xppn"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_tvb77"]
+offsets = PackedFloat32Array(0.4982079, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggx45"]
+atlas = ExtResource("3_nygoa")
+region = Rect2(0, 0, 32, 32)
+
+[node name="PickaxeBreakParticles" type="Node2D" unique_id=994540784]
+script = ExtResource("1_k3p7n")
+
+[node name="HandleParticles" type="CPUParticles2D" parent="." unique_id=1416920261]
+material = SubResource("CanvasItemMaterial_8xppn")
+emitting = false
+amount = 16
+texture = ExtResource("2_efsu7")
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(16, 16)
+direction = Vector2(0, -1)
+spread = 90.0
+initial_velocity_max = 338.68
+color_ramp = SubResource("Gradient_tvb77")
+anim_offset_max = 1.0
+
+[node name="HeadParticles" type="CPUParticles2D" parent="." unique_id=465248221]
+material = SubResource("CanvasItemMaterial_8xppn")
+emitting = false
+amount = 16
+texture = SubResource("AtlasTexture_ggx45")
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(16, 16)
+direction = Vector2(0, -1)
+spread = 90.0
+initial_velocity_max = 338.68
+color_ramp = SubResource("Gradient_tvb77")
+anim_offset_max = 1.0
+
+[connection signal="finished" from="HandleParticles" to="." method="_on_handle_particles_finished"]

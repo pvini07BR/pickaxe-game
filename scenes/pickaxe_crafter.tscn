@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://d2pofrvfad1pm"]
+
+[ext_resource type="Script" uid="uid://cp0scohhucn26" path="res://scenes/pickaxe_maker.gd" id="1_4b3m0"]
+[ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="2_lcdqi"]
+[ext_resource type="Resource" uid="uid://ce2spgyqxnca6" path="res://resources/heads/stone.tres" id="3_6qp26"]
+[ext_resource type="Resource" uid="uid://rt7tl8xqlje" path="res://resources/heads/iron.tres" id="4_a1i6b"]
+[ext_resource type="Script" uid="uid://cu01i3gcjqnxl" path="res://scripts/handle_material.gd" id="5_45wng"]
+[ext_resource type="Resource" uid="uid://cqgdx70kqeywo" path="res://resources/handles/stone.tres" id="6_4eyp2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcdqi"]
+font_size = 12
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0.40784314, 0, 0, 1)
+
+[node name="PickaxeCrafter" type="PanelContainer" unique_id=547712698]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4b3m0")
+heads = Array[ExtResource("2_lcdqi")]([ExtResource("3_6qp26"), ExtResource("4_a1i6b")])
+handles = Array[ExtResource("5_45wng")]([ExtResource("6_4eyp2")])
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1167524834]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=782831211]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2" unique_id=731042248]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HeadContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1984814482]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer/HeadContainer" unique_id=1090632896]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "PICKAXE_HEAD"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer/HeadContainer" unique_id=1103556548]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HandleContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=813181977]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer/HandleContainer" unique_id=529107067]
+layout_mode = 2
+text = "PICKAXE_HANDLE"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer/HandleContainer" unique_id=1382776826]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="CenterContainer" parent="VBoxContainer/HBoxContainer2" unique_id=120003632]
+layout_mode = 2
+
+[node name="HandleTexture" type="TextureRect" parent="VBoxContainer/HBoxContainer2/Control" unique_id=54719740]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="HeadTexture" type="TextureRect" parent="VBoxContainer/HBoxContainer2/Control" unique_id=1511290989]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1841796919]
+layout_mode = 2
+text = "LABEL_INGREDIENTS"
+
+[node name="IngredientsContainer" type="GridContainer" parent="VBoxContainer" unique_id=113378812]
+layout_mode = 2
+columns = 5
+
+[node name="MissingIngredientsText" type="Label" parent="VBoxContainer" unique_id=688358064]
+visible = false
+layout_mode = 2
+text = "ERR_NOT_ENOUGH_RESOURCES"
+label_settings = SubResource("LabelSettings_lcdqi")
+horizontal_alignment = 1
+
+[node name="MakePickaxeButton" type="Button" parent="VBoxContainer" unique_id=312320574]
+layout_mode = 2
+text = "BTN_CRAFT_PICKAXE"
+
+[node name="CloseButton" type="Button" parent="VBoxContainer" unique_id=1913085080]
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/VBoxContainer/HeadContainer/OptionButton" to="." method="_on_head_option_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/VBoxContainer/HandleContainer/OptionButton" to="." method="_on_handle_option_selected"]
+[connection signal="pressed" from="VBoxContainer/MakePickaxeButton" to="." method="_on_make_pickaxe_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

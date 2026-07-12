@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FurnaceRecipe" format=3 uid="uid://qbdcvpebtae2"]
+
+[ext_resource type="Script" uid="uid://dml5do6t1plrm" path="res://scripts/recipe_ingredient.gd" id="1_pody1"]
+[ext_resource type="Script" uid="uid://bfsarjyb6mh1w" path="res://scripts/furnace_recipe.gd" id="2_5f3uv"]
+[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="2_giig0"]
+[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="2_s46v0"]
+[ext_resource type="Resource" uid="uid://b7tk5lddow0f0" path="res://resources/items/iron_bar.tres" id="3_s46v0"]
+
+[sub_resource type="Resource" id="Resource_pody1"]
+script = ExtResource("1_pody1")
+item = ExtResource("2_s46v0")
+amount = 3
+metadata/_custom_type_script = "uid://dml5do6t1plrm"
+
+[sub_resource type="Resource" id="Resource_s46v0"]
+script = ExtResource("1_pody1")
+item = ExtResource("2_giig0")
+amount = 2
+metadata/_custom_type_script = "uid://dml5do6t1plrm"
+
+[resource]
+script = ExtResource("2_5f3uv")
+ingredients = Array[ExtResource("1_pody1")]([SubResource("Resource_pody1"), SubResource("Resource_s46v0")])
+smelt_time = 10.0
+output = ExtResource("3_s46v0")
+metadata/_custom_type_script = "uid://bfsarjyb6mh1w"

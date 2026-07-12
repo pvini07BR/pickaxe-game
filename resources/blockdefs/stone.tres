@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BlockDef" format=3 uid="uid://dx6tcn8xiweqt"]
+
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="1_5gi7m"]
+[ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_q3jsv"]
+
+[resource]
+script = ExtResource("1_q3jsv")
+item = ExtResource("1_5gi7m")
+metadata/_custom_type_script = "uid://bdi8ueueves8t"

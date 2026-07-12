@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c66ssvjf38mfw"]
+
+[ext_resource type="StyleBox" uid="uid://c44ardsmgqclx" path="res://resources/alt_container_theme.tres" id="1_b5j4s"]
+[ext_resource type="Script" uid="uid://brclmvbypsnlh" path="res://scenes/ui/tooltip.gd" id="1_mtwet"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5riyp"]
+font_size = 12
+
+[node name="Tooltip" type="PanelContainer" unique_id=335408334]
+self_modulate = Color(1, 1, 1, 0.7529412)
+z_index = 100
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_b5j4s")
+script = ExtResource("1_mtwet")
+
+[node name="Label" type="Label" parent="." unique_id=1716542874]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_5riyp")

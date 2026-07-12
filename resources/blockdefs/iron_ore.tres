@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BlockDef" format=3 uid="uid://dnf1h4jhtfutb"]
+
+[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="1_43im3"]
+[ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_pcpxa"]
+
+[resource]
+script = ExtResource("1_pcpxa")
+item = ExtResource("1_43im3")
+mining_speed_factor = 1.5
+metadata/_custom_type_script = "uid://bdi8ueueves8t"

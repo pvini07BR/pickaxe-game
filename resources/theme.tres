@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://b4d6fokboayxj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tekt2"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+default_font_size = 12
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_tekt2")

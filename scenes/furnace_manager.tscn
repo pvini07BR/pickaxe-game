@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://d14gyurwskdpl"]
+
+[ext_resource type="Script" uid="uid://cbw7cl6x2nmah" path="res://scenes/furnace_manager.gd" id="1_omsfa"]
+[ext_resource type="Script" uid="uid://l7lispulo2de" path="res://scripts/item.gd" id="2_x74ij"]
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="3_i0ula"]
+[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="4_x74ij"]
+[ext_resource type="Resource" uid="uid://qbdcvpebtae2" path="res://resources/furnace/iron_bar.tres" id="6_0b6lh"]
+[ext_resource type="Script" uid="uid://bfsarjyb6mh1w" path="res://scripts/furnace_recipe.gd" id="6_d3p6s"]
+[ext_resource type="PackedScene" uid="uid://befte0vkt60ot" path="res://scenes/ui/item_slot.tscn" id="8_rkb42"]
+[ext_resource type="StyleBox" uid="uid://c44ardsmgqclx" path="res://resources/alt_container_theme.tres" id="10_bj0oy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcdqi"]
+font_size = 12
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0.40784314, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0b6lh"]
+font_size = 9
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0.40784314, 0, 0, 1)
+
+[node name="FurnaceManager" type="Control" unique_id=2114014815]
+z_index = 2
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -138.0
+offset_right = 268.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_omsfa")
+furnace_ingredients = Dictionary[ExtResource("2_x74ij"), int]({
+ExtResource("3_i0ula"): 1,
+ExtResource("4_x74ij"): 1
+})
+recipes = Array[ExtResource("6_d3p6s")]([ExtResource("6_0b6lh")])
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=827312431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FurnaceUI" type="HBoxContainer" parent="PanelContainer" unique_id=1624083684]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FurnaceUI" unique_id=536021992]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="RecipeList" type="ItemList" parent="PanelContainer/FurnaceUI/VBoxContainer" unique_id=723647515]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="PanelContainer/FurnaceUI/VBoxContainer" unique_id=1447424961]
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/FurnaceUI" unique_id=2004220642]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2" unique_id=1781909569]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer" unique_id=203359052]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=870810906]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=176663574]
+layout_mode = 2
+text = "LABEL_INGREDIENTS"
+horizontal_alignment = 1
+
+[node name="IngredientsGridContainer" type="GridContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1853885534]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="SmeltTimeLabel" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=122820883]
+layout_mode = 2
+size_flags_vertical = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1645466312]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=192215171]
+layout_mode = 2
+text = "LABEL_OUTPUT"
+horizontal_alignment = 1
+
+[node name="OutputSlot" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1156957659 instance=ExtResource("8_rkb42")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MissingSmeltIngLabel" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer" unique_id=692152773]
+visible = false
+layout_mode = 2
+text = "ERR_NOT_ENOUGH_RESOURCES"
+label_settings = SubResource("LabelSettings_lcdqi")
+horizontal_alignment = 1
+
+[node name="SmeltButton" type="Button" parent="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer" unique_id=773186650]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2" unique_id=1975285374]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2" unique_id=1726035655]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=1144713925]
+layout_mode = 2
+text = "LABEL_SMELTING_ITEMS"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=1545273074]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("10_bj0oy")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer/PanelContainer" unique_id=1425504307]
+custom_maximum_size = Vector2(-1, 140)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 5
+
+[node name="FurnacesGrid" type="GridContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1771600382]
+layout_mode = 2
+columns = 8
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2" unique_id=1408908446]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer2" unique_id=634894981]
+layout_mode = 2
+text = "LABEL_CRAFT_NEW_FURNACE"
+horizontal_alignment = 1
+
+[node name="FurnaceIngredients" type="HBoxContainer" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer2" unique_id=1685930461]
+layout_mode = 2
+alignment = 1
+
+[node name="MissingFurnaceIngLabel" type="Label" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer2" unique_id=1586834200]
+visible = false
+layout_mode = 2
+text = "ERR_NOT_ENOUGH_RESOURCES"
+label_settings = SubResource("LabelSettings_0b6lh")
+horizontal_alignment = 1
+
+[node name="CraftFurnaceButton" type="Button" parent="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer2" unique_id=1446664488]
+layout_mode = 2
+text = "BTN_CRAFT"
+
+[connection signal="item_selected" from="PanelContainer/FurnaceUI/VBoxContainer/RecipeList" to="." method="_on_recipe_list_item_selected"]
+[connection signal="pressed" from="PanelContainer/FurnaceUI/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/FurnaceUI/VBoxContainer2/VBoxContainer/SmeltButton" to="." method="_on_smelt_button_pressed"]
+[connection signal="child_entered_tree" from="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer/PanelContainer/ScrollContainer/FurnacesGrid" to="." method="_on_furnaces_grid_child_entered_tree"]
+[connection signal="child_exiting_tree" from="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer/PanelContainer/ScrollContainer/FurnacesGrid" to="." method="_on_furnaces_grid_child_exiting_tree"]
+[connection signal="pressed" from="PanelContainer/FurnaceUI/VBoxContainer2/HBoxContainer2/VBoxContainer2/CraftFurnaceButton" to="." method="_on_craft_furnace_button_pressed"]

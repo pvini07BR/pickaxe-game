@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BlockDef" format=3 uid="uid://bsiye53xjny5l"]
+
+[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="1_jadj6"]
+[ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_vuxan"]
+
+[resource]
+script = ExtResource("1_vuxan")
+item = ExtResource("1_jadj6")
+mining_speed_factor = 1.25
+metadata/_custom_type_script = "uid://bdi8ueueves8t"

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c0l2vjo61dbn0"]
+
+[ext_resource type="Script" uid="uid://ljme0v21awvm" path="res://scenes/ui/furnace_slot.gd" id="2_wuwc2"]
+
+[node name="FurnaceSlot" type="TextureProgressBar" unique_id=1172314439]
+step = 0.01
+fill_mode = 4
+tint_under = Color(0.2509804, 0.2509804, 0.2509804, 1)
+script = ExtResource("2_wuwc2")
+
+[node name="SmeltTimer" type="Timer" parent="." unique_id=1281750025]
+one_shot = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="SmeltTimer" to="." method="_on_smelt_timer_timeout"]
