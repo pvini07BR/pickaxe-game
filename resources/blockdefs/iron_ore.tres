@@ -3,8 +3,14 @@
 [ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="1_43im3"]
 [ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_pcpxa"]
 
+[sub_resource type="Curve" id="Curve_jadj6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
 [resource]
 script = ExtResource("1_pcpxa")
 item = ExtResource("1_43im3")
 mining_speed_factor = 1.5
+flip_h = true
+spawn_curve = SubResource("Curve_jadj6")
 metadata/_custom_type_script = "uid://bdi8ueueves8t"

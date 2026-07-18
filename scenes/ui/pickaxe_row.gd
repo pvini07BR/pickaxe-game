@@ -3,6 +3,7 @@ extends ColorRect
 class_name PickaxeRow
 
 const PICKAXE_ACTOR = preload("res://scenes/pickaxe_actor.tscn")
+const BREAK_PARTICLES = preload("res://scenes/breaking_particles.tscn")
 const PICK_BREAK_PARTICLES = preload("res://scenes/pickaxe_break_particles.tscn")
 
 @export var game_window: GameWindow
@@ -13,7 +14,6 @@ var finished := false
 var hovered := false
 
 @onready var cracks: Sprite2D = $Cracks
-@onready var particles: CPUParticles2D = $Particles
 
 signal pickaxe_added(row: PickaxeRow)
 signal pickaxe_removed(row: PickaxeRow)
@@ -32,7 +32,6 @@ var pickaxe_data: Pickaxe = null:
 				if data:
 					var blockdef = data.get_custom_data("blockdef") as BlockDef
 					actor.set_anim_speed_scale(blockdef.mining_speed_factor)
-					particles.lifetime = (actor.anim.get_animation("mining").length * actor.anim.speed_scale) / 4.0
 				pickaxe_added.emit(self)
 				self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			else:
@@ -109,12 +108,12 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 	
 func _on_pickaxe_hit():
 	var block_atlas_coords = game_window.get_cell_atlas_coords(Vector2i(game_window.column, get_index()))
-	var mat = particles.material as ShaderMaterial
-	mat.set_shader_parameter("atlas_id", block_atlas_coords.x)
-	particles.emitting = true
+	var particles = BREAK_PARTICLES.instantiate() as BreakingParticles
+	add_child(particles)
 	
 	if cracks.frame < 7:
 		cracks.frame += 1
+		particles.emit(block_atlas_coords.x, 32, 8)
 		await actor.anim.animation_finished
 		actor.anim.play("mining")
 	else:
@@ -125,6 +124,7 @@ func _on_pickaxe_hit():
 			
 		game_window.erase_cell(Vector2i(game_window.column, get_index()))
 		cracks.frame = 0
+		particles.emit(block_atlas_coords.x, 64, 4)
 		
 		await actor.anim.animation_finished
 		

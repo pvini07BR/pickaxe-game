@@ -6,7 +6,7 @@ extends Control
 @onready var bg_fade: ColorRect = $BGFade
 @onready var game_over_popup: PanelContainer = $GameOverPopup
 
-@onready var game_window: ColorRect = $MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow
+@onready var game_window: TileMapLayer = $MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow/TileMapLayer
 
 @onready var language: PanelContainer = $Language
 @onready var tutorial: PanelContainer = $Tutorial
@@ -14,6 +14,7 @@ extends Control
 @onready var reset: PanelContainer = $ResetMenu
 @onready var seed_label: Label = $VBoxContainer/SeedLabel
 @onready var seed_spin_box: SpinBox = $ResetMenu/VBoxContainer/HBoxContainer2/SeedSpinBox
+@onready var column_label: Label = $VBoxContainer/ColumnLabel
 
 func _init() -> void:
 	TranslationServer.set_locale("english")
@@ -23,6 +24,8 @@ func _ready() -> void:
 		bg_fade.visible = true
 		language.visible = true
 		Tooltip.language_defined = true
+		
+	column_label.text = tr("COLUMN") + ' ' + str(game_window.column)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -103,3 +106,6 @@ func _on_reset_cancel_button_pressed() -> void:
 func _on_tile_map_layer_seed_ready(seed: int) -> void:
 	await get_tree().process_frame
 	seed_label.text = "Seed: %d" % seed
+
+func _on_tile_map_layer_transition_over() -> void:
+	column_label.text = tr("COLUMN") + ' ' + str(game_window.column)

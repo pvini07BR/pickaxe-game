@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b40fa8c6h0nsf" path="res://scenes/inventory.gd" id="2_jbj1t"]
 [ext_resource type="Script" uid="uid://y66b2oetyvja" path="res://scripts/pickaxe.gd" id="3_a8y0u"]
 [ext_resource type="Resource" uid="uid://dx6tcn8xiweqt" path="res://resources/blockdefs/stone.tres" id="3_jbj1t"]
+[ext_resource type="Resource" uid="uid://dcvk72skamgqv" path="res://resources/blockdefs/dirt.tres" id="3_jscy8"]
 [ext_resource type="Resource" uid="uid://cp3110f43u74s" path="res://resources/handles/wood.tres" id="4_jbj1t"]
 [ext_resource type="Resource" uid="uid://bsiye53xjny5l" path="res://resources/blockdefs/coal_ore.tres" id="4_muem4"]
 [ext_resource type="Script" uid="uid://bm61br2d8bb3n" path="res://scenes/game_window.gd" id="5_a8y0u"]
@@ -11,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://ce2spgyqxnca6" path="res://resources/heads/stone.tres" id="5_muem4"]
 [ext_resource type="Script" uid="uid://qik3vff0aphm" path="res://scenes/pickaxe_rows.gd" id="7_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://tj01acqyvix1" path="res://assets/sprites/blockatlas.png" id="9_jscy8"]
+[ext_resource type="Script" uid="uid://pw245dgqu544" path="res://scripts/block_gen.gd" id="9_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://0rvh7tbcso0t" path="res://scenes/ui/pickaxe_row.tscn" id="10_trceg"]
 [ext_resource type="PackedScene" uid="uid://d2pofrvfad1pm" path="res://scenes/pickaxe_crafter.tscn" id="14_a8y0u"]
 [ext_resource type="Script" uid="uid://d783dq5sn4ej" path="res://scenes/pickaxe_list.gd" id="14_dp3eg"]
@@ -18,22 +20,62 @@
 [ext_resource type="PackedScene" uid="uid://d14gyurwskdpl" path="res://scenes/furnace_manager.tscn" id="16_jbj1t"]
 [ext_resource type="StyleBox" uid="uid://c44ardsmgqclx" path="res://resources/alt_container_theme.tres" id="17_dp3eg"]
 [ext_resource type="Script" uid="uid://d21xthn4i5xh8" path="res://scenes/options.gd" id="17_muem4"]
+[ext_resource type="Script" uid="uid://l7lispulo2de" path="res://scripts/item.gd" id="17_yc10j"]
+[ext_resource type="Resource" uid="uid://bvokktkuco8cg" path="res://resources/items/stone.tres" id="18_jscy8"]
+[ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="19_pm3ni"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("9_jscy8")
 texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/custom_data_0 = ExtResource("3_jbj1t")
-1:0/0 = 0
-1:0/0/custom_data_0 = ExtResource("4_muem4")
 2:0/0 = 0
-2:0/0/custom_data_0 = ExtResource("5_jbj1t")
+2:0/0/custom_data_0 = ExtResource("4_muem4")
+3:0/0 = 0
+3:0/0/custom_data_0 = ExtResource("5_jbj1t")
+1:0/0 = 0
+1:0/0/custom_data_0 = ExtResource("3_jbj1t")
+0:0/0 = 0
+0:0/0/custom_data_0 = ExtResource("3_jscy8")
 
 [sub_resource type="TileSet" id="TileSet_oev6u"]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "blockdef"
 custom_data_layer_0/type = 24
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="Curve" id="Curve_pm3ni"]
+_data = [Vector2(0, 0.7094017), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_knmrr"]
+script = ExtResource("9_pm3ni")
+spawn_curve = SubResource("Curve_pm3ni")
+end_column = 15
+metadata/_custom_type_script = "uid://pw245dgqu544"
+
+[sub_resource type="Curve" id="Curve_y6deb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.258, 0.5), -1.4777348, -1.4777348, 0, 0, Vector2(1, 0.1025641), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_pm3ni"]
+script = ExtResource("9_pm3ni")
+block_id = 2
+spawn_curve = SubResource("Curve_y6deb")
+start_column = 15
+end_column = 50
+is_endless = true
+metadata/_custom_type_script = "uid://pw245dgqu544"
+
+[sub_resource type="Curve" id="Curve_og1vs"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.21895427, 0.3247863), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_y6deb"]
+script = ExtResource("9_pm3ni")
+block_id = 3
+spawn_curve = SubResource("Curve_og1vs")
+start_column = 30
+end_column = 75
+metadata/_custom_type_script = "uid://pw245dgqu544"
 
 [sub_resource type="Resource" id="Resource_dp3eg"]
 script = ExtResource("3_a8y0u")
@@ -109,6 +151,7 @@ rendering_quadrant_size = 1
 collision_enabled = false
 navigation_enabled = false
 script = ExtResource("5_a8y0u")
+blockgens = Array[ExtResource("9_pm3ni")]([SubResource("Resource_knmrr"), SubResource("Resource_pm3ni"), SubResource("Resource_y6deb")])
 
 [node name="PickaxeRows" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=894763855 node_paths=PackedStringArray("game_window", "pickaxe_list")]
 layout_mode = 2
@@ -243,6 +286,10 @@ pickaxe_list = NodePath("../MarginContainer/HBoxContainer/VBoxContainer2/Pickaxe
 [node name="FurnaceManager" parent="." unique_id=1156422504 node_paths=PackedStringArray("inventory") instance=ExtResource("16_jbj1t")]
 visible = false
 layout_mode = 1
+furnace_ingredients = Dictionary[ExtResource("17_yc10j"), int]({
+ExtResource("18_jscy8"): 15,
+ExtResource("19_pm3ni"): 10
+})
 inventory = NodePath("../Inventory")
 
 [node name="Tutorial" type="PanelContainer" parent="." unique_id=224714392]
@@ -459,19 +506,29 @@ text = "BTN_NEW_GAME"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=223212639]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 534.0
+offset_right = 636.0
+offset_bottom = 45.0
 theme_override_constants/separation = -3
+alignment = 2
 
 [node name="VersionLabel" type="Label" parent="VBoxContainer" unique_id=1285846632]
 layout_mode = 2
 text = "v0.1.0 (Prototype)"
+horizontal_alignment = 2
 
 [node name="SeedLabel" type="Label" parent="VBoxContainer" unique_id=1127706137]
 layout_mode = 2
 text = "Seed: 0"
+horizontal_alignment = 2
+
+[node name="ColumnLabel" type="Label" parent="VBoxContainer" unique_id=468213482]
+layout_mode = 2
+text = "COLUMN"
+horizontal_alignment = 2
 
 [connection signal="seed_ready" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow/TileMapLayer" to="." method="_on_tile_map_layer_seed_ready"]
+[connection signal="transition_over" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/GameWindow/TileMapLayer" to="." method="_on_tile_map_layer_transition_over"]
 [connection signal="game_over" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/PickaxeRows" to="." method="_on_game_over"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/GameButtons/CraftPickaxeButton" to="." method="_on_craft_pickaxe_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/GameButtons/FurnaceButton" to="." method="_on_furnace_button_pressed"]

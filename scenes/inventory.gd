@@ -19,6 +19,7 @@ func refresh_inventory():
 		slot.set_item(item, inventory[item] + 1)
 		
 func add_item(item: Item, amount: int):
+	if !item: return
 	if amount <= 0: return
 	
 	if inventory.has(item):

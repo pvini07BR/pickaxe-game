@@ -3,8 +3,14 @@
 [ext_resource type="Resource" uid="uid://bymd5ngxsramq" path="res://resources/items/coal.tres" id="1_jadj6"]
 [ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_vuxan"]
 
+[sub_resource type="Curve" id="Curve_7bu2e"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
+point_count = 1
+
 [resource]
 script = ExtResource("1_vuxan")
 item = ExtResource("1_jadj6")
 mining_speed_factor = 1.25
+flip_h = true
+spawn_curve = SubResource("Curve_7bu2e")
 metadata/_custom_type_script = "uid://bdi8ueueves8t"

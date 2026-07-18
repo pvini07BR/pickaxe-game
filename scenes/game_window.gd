@@ -4,31 +4,14 @@ class_name GameWindow
 
 const WINDOW_SIZE := Vector2i(10, 6)
 
-var column := 0
+@export var column := 0
 var moving := false
 
 @export var seed := Tooltip.seed
+@export var blockgens: Array[BlockGen]
 
 signal seed_ready(seed: int)
 signal transition_over
-
-func get_column() -> int:
-	return column
-
-func generate_block(x: int, y: int):
-	seed(seed + hash(str(x) + "," + str(y)))
-	
-	var flip_h = randf() < 0.5
-	var flip_h_flag = TileSetAtlasSource.TRANSFORM_FLIP_H if flip_h else 0
-	
-	var block_id = 0
-	var range = randi_range(0, 100)
-	if range < 15:
-		block_id = 1
-	elif range > 15 and range < 30:
-		block_id = 2
-	
-	set_cell(Vector2i(x, y), 0, Vector2i(block_id, -1 if block_id == -1 else 0), flip_h_flag)
 
 func _ready() -> void:
 	if seed == 0:
@@ -36,10 +19,51 @@ func _ready() -> void:
 		
 	seed_ready.emit(seed)
 	
+	self.position.x -= tile_set.tile_size.x * column
 	for y in WINDOW_SIZE.y:
 		for x in WINDOW_SIZE.x:
-			generate_block(x, y)
+			generate_block(column + x, y)
+
+func generate_block(x: int, y: int) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed + hash(Vector2i(x, y))
+	
+	var block_id := 1
+	
+	for g in blockgens:
+		var prob = g.get_spawn_probability(x)
+		if rng.randf() < prob:
+			block_id = g.block_id
+			break
+				
+	var source := tile_set.get_source(0) as TileSetAtlasSource
+	var tile_data := source.get_tile_data(Vector2i(block_id, 0), 0)
+	
+	if tile_data == null:
+		return
+		
+	var blockdef := tile_data.get_custom_data("blockdef") as BlockDef
+	if blockdef == null: 
+		return
 			
+	var alternate := 0
+	
+	if blockdef.flip_h and rng.randf() < 0.5:
+		alternate |= TileSetAtlasSource.TRANSFORM_FLIP_H
+		
+	if blockdef.flip_v and rng.randf() < 0.5:
+		alternate |= TileSetAtlasSource.TRANSFORM_FLIP_V
+	
+	set_cell(
+		Vector2i(x, y),
+		0,
+		Vector2i(block_id, 0),
+		alternate
+	)
+	
+func get_column() -> int:
+	return column
+	
 func move_to_next_column():
 	column += 1
 	var t := create_tween()

@@ -14,6 +14,7 @@ BTN_CLOSE,Fechar,Close
 ERR_NOT_ENOUGH_RESOURCES,Recursos insuficientes!,Not enough resources!
 DURABILITY,Durabilidade:,Durability:
 PROGRESS,Progresso: %.1f%%,Progress: %.1f%%
+COLUMN,Coluna:,Column:
 ,,
 LABEL_SELECT_LANGUAGE,Selecione um Idioma:,Select a Language:
 LABEL_GAME_OVER,FIM DE JOGO,GAME OVER

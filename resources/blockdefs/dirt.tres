@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BlockDef" format=3 uid="uid://dcvk72skamgqv"]
+
+[ext_resource type="Script" uid="uid://bdi8ueueves8t" path="res://scripts/block_def.gd" id="1_7bu2e"]
+
+[sub_resource type="Curve" id="Curve_43im3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_7bu2e")
+mining_speed_factor = 0.25
+flip_h = true
+flip_v = true
+spawn_curve = SubResource("Curve_43im3")
+end_column = 10
+metadata/_custom_type_script = "uid://bdi8ueueves8t"

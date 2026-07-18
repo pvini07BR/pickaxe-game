@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dml5do6t1plrm" path="res://scripts/recipe_ingredient.gd" id="1_1ith6"]
 [ext_resource type="Script" uid="uid://cpdr66i80efe3" path="res://scripts/head_material.gd" id="1_2k8sk"]
+[ext_resource type="Resource" uid="uid://b7tk5lddow0f0" path="res://resources/items/iron_bar.tres" id="2_1ith6"]
 [ext_resource type="Texture2D" uid="uid://bp6nagxiv6cvx" path="res://assets/sprites/heads/iron.png" id="2_2k8sk"]
-[ext_resource type="Resource" uid="uid://ddechrv7c5w36" path="res://resources/items/raw_iron.tres" id="2_77wwl"]
 
 [sub_resource type="Resource" id="Resource_muem4"]
 script = ExtResource("1_1ith6")
-item = ExtResource("2_77wwl")
+item = ExtResource("2_1ith6")
 amount = 3
 metadata/_custom_type_script = "uid://dml5do6t1plrm"
 

@@ -13,6 +13,8 @@ func _ready() -> void:
 		set_item(item, amount)
 
 func set_item(new_item: Item, new_amount: int):
+	if !new_item: return
+	
 	item = new_item
 	amount = new_amount
 		
